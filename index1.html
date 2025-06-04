@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Password Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 2px 2px 10px gray; }
+    label { display: block; margin: 10px 0 5px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>AI Password Generator</h2>
+    <label>Password Length: <input type="number" id="length" value="12" min="4"></label>
+    <label><input type="checkbox" id="upper" checked> Include Uppercase</label>
+    <label><input type="checkbox" id="lower" checked> Include Lowercase</label>
+    <label><input type="checkbox" id="digits" checked> Include Numbers</label>
+    <label><input type="checkbox" id="special" checked> Include Special Characters</label>
+    <button onclick="generatePassword()">Generate</button>
+    <p><strong>Password:</strong> <span id="output"></span></p>
+  </div>
+
+  <script>
+    function generatePassword() {
+      const length = parseInt(document.getElementById('length').value);
+      const useUpper = document.getElementById('upper').checked;
+      const useLower = document.getElementById('lower').checked;
+      const useDigits = document.getElementById('digits').checked;
+      const useSpecial = document.getElementById('special').checked;
+
+      const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lower = "abcdefghijklmnopqrstuvwxyz";
+      const digits = "0123456789";
+      const special = "!@#$%^&*()_+{}:<>?[]";
+
+      let all = "";
+      if (useUpper) all += upper;
+      if (useLower) all += lower;
+      if (useDigits) all += digits;
+      if (useSpecial) all += special;
+
+      if (!all) {
+        alert("Please select at least one option!");
+        return;
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += all.charAt(Math.floor(Math.random() * all.length));
+      }
+
+      document.getElementById("output").textContent = password;
+    }
+  </script>
+</body>
+</html>
